@@ -1,10 +1,11 @@
-import { salvarGames, listarGames, deleteClothes, alterClothes, alterClothesImage, listClothesPerId } from "../repository/gamesRepository.js";
+import { salvarGames, listarGames, deleteGames, alterGames, alterGamesImage, listGamesPerId } from "../repository/gamesRepository.js";
 
 
 import {Router} from "express";
 import multer from 'multer';
 
-const upload = multer({dest: 'uploads/'});
+
+const upload = multer({ dest: 'storage/games' })
 const servidor = Router();
 
 
@@ -27,15 +28,15 @@ servidor.get('/games', async (req, resp) => {
 servidor.get('/games/:id', async (req, resp) => {
     let id = req.params.id;
 
-    let clothesPerId = await listClothesPerId(id);
+    let gamesPerId = await listGamesPerId(id);
 
-    resp.send(clothesPerId);
+    resp.send(gamesPerId);
 })
 
 servidor.delete('/games/:id', async (req, resp) => {
     let id = req.params.id;
 
-    let linesAffect = await deleteClothes(id);
+    let linesAffect = await deleteGames(id);
     if (linesAffect == 0)
         resp.status(404).send();
     else
@@ -47,7 +48,7 @@ servidor.put('/games/:id', async (req, resp) => {
     let clothes = req.body;
 
     try {
-        let linesAffect = await alterClothes(clothes, id);
+        let linesAffect = await alterGames(clothes, id);
         if (linesAffect == 0)
             resp.status(404).send();
         else
@@ -61,7 +62,7 @@ servidor.put('/games/imagem/:id', async (req, resp) => {
     let id = req.params.id;
     let clothes = req.file.path;
 
-    let linesAffect = await alterClothesImage(id, clothes);
+    let linesAffect = await alterGamesImage(id, clothes);
     if (linesAffect == 0)
         resp.status(404).send();
     else

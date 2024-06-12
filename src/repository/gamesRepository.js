@@ -32,7 +32,7 @@ export async function listarGames () {
     return linhas;
 }
 
-export async function listClothesPerId(id) {
+export async function listGamesPerId(id) {
     let comando = `
     select 
            id_games    id,
@@ -49,7 +49,7 @@ export async function listClothesPerId(id) {
     return linhas[0];
 }
 
-export async function deleteClothes(id) {
+export async function deleteGames(id) {
     let comando = `
     delete from tb_games where id_games = ?
     `;
@@ -60,7 +60,7 @@ export async function deleteClothes(id) {
     return info.affectedRows;
 }
 
-export async function alterClothes(games, id) {
+export async function alterGames(games, id) {
     const comando = `
     update tb_games 
     set nome_games = ?, 
@@ -83,7 +83,7 @@ export async function alterClothes(games, id) {
     }
 }
 
-export async function alterClothesImage(id, caminho) {
+export async function alterGamesImage(id, caminho) {
     let comando = `
     update tb_games 
     set img_games = ? 

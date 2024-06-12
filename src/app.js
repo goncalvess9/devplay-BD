@@ -12,6 +12,7 @@ servidor.use(express.json());
 
 servidor.use(gamesController);
 servidor.use(userController);
+servidor.use('/storage/games', express.static('storage/games'));
 
 let port = process.env.PORT;
 servidor.listen(port, () => console.log("API do malandrinho subiu!"));
