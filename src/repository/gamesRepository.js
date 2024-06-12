@@ -19,8 +19,12 @@ export async function salvarGames(games) {
 
 export async function listarGames () {
     let comando = `
-    SELECT * FROM tb_games;
-    `
+    SELECT id_games    id,
+           nome_games  nome,
+           preco_games preco,
+           img_games   imagem
+    FROM tb_games
+    `;
 
     let resp = await con.query(comando, []);
     let linhas = resp[0];
@@ -30,7 +34,13 @@ export async function listarGames () {
 
 export async function listClothesPerId(id) {
     let comando = `
-    select*from tb_games where id_games = ?
+    select 
+           id_games    id,
+           nome_games  nome,
+           preco_games preco,
+           img_games   imagem
+    from tb_games 
+    where id_games = ?
     `;
 
     let resp = await con.query(comando, [id]);
@@ -52,7 +62,11 @@ export async function deleteClothes(id) {
 
 export async function alterClothes(games, id) {
     const comando = `
-    update tb_games set nome_games = ?, preco_games = ?, img_games = ? where id_games = ?
+    update tb_games 
+    set nome_games = ?, 
+        preco_games = ?,
+        img_games = ? 
+        where id_games = ?
     `;
 
     try {
@@ -71,7 +85,9 @@ export async function alterClothes(games, id) {
 
 export async function alterClothesImage(id, caminho) {
     let comando = `
-    update tb_games set img_games = ? where id_games = ?
+    update tb_games 
+    set img_games = ? 
+    where id_games = ?
     `;
 
     let resp = await con.query (comando, [caminho, id]);
