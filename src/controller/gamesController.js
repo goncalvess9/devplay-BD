@@ -2,12 +2,18 @@ import { salvarGames, listarGames, deleteClothes, alterClothes, alterClothesImag
 
 
 import {Router} from "express";
-let servidor = Router();
+import multer from 'multer';
+
+const upload = multer({dest: 'uploads/'});
+const servidor = Router();
 
 
 
-servidor.post('/games', async (req, resp) => {
+servidor.post('/games', upload.single('imagem'), async (req, resp) => {
   let games = req.body;
+  if (req.file) {
+    games.img = req.file.path;
+  }
 
   let gamesInserido = await salvarGames(games);
   resp.send(gamesInserido);
